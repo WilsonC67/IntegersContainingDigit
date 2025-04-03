@@ -16,6 +16,8 @@
      
          try (Scanner userInput = new Scanner(System.in)) {
  
+            // TODO: MODIFY PROGRAM TO PROCESS AN EXCLUSIVE RANGE (this is really just a minor change in the for loop tbh)
+            
              int numbersWithNumber = 0;
              int numbersWithoutNumber = 0;
              int lowerEndpoint = 0;
