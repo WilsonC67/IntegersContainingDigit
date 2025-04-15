@@ -18,39 +18,76 @@
  
             // TODO: MODIFY PROGRAM TO PROCESS AN EXCLUSIVE RANGE (this is really just a minor change in the for loop tbh)
             
-             int numbersWithNumber = 0;
-             int numbersWithoutNumber = 0;
-             int lowerEndpoint = 0;
-             int upperEndpoint = 0;
-             int findDigit = 0;
-             int[] singleDigitIntegers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+            int numbersWithNumber = 0;
+            int numbersWithoutNumber = 0;
+            int lowerEndpoint = 0;
+            int upperEndpoint = 0;
+            int findDigit = 0;
+            int totalIntegers = 0;
+            int[] singleDigitIntegers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+
+            String rangeType = "";
  
-             System.out.println("Welcome! This is a program to see how many integers include a specific digit" + 
-                                 " within an inclusive specified range.");
+            System.out.println("Welcome! This is a program to see how many integers include a specific digit" + 
+                                 " within either an inclusive or exclusive specified range.");
  
-             System.out.println("Please enter the lower endpoint.");
+            System.out.println("Please enter I for inclusive or E for exclusive.");
+            rangeType = userInput.nextLine().toUpperCase();
+
+            System.out.println("Please enter the lower endpoint.");
              
-             lowerEndpoint = userInput.nextInt();
+            lowerEndpoint = userInput.nextInt();
  
-             System.out.println("Please enter the upper endpoint.");
+            System.out.println("Please enter the upper endpoint.");
  
-             upperEndpoint = userInput.nextInt();
+            upperEndpoint = userInput.nextInt();
              
-             System.out.println("What is the specific single digit you want to find in the integers contained in the range?");
-             printArray(singleDigitIntegers);
+            System.out.println("What is the specific single digit you want to find in the integers contained in the range?");
+            printArray(singleDigitIntegers);
  
-             findDigit = userInput.nextInt();
- 
-             for (int i = lowerEndpoint; i <= upperEndpoint; i++) {
-                 if(containsSpecificNumber(i, findDigit)) {
-                     numbersWithNumber++;
-                 } else {
-                     numbersWithoutNumber++;
-                 }
-             }
- 
-             System.out.println(String.format("Between %d and %d (inclusive), there are %d integers that contain the digit %d, and %d without."
+            findDigit = userInput.nextInt();
+
+            switch(rangeType) {
+                case "I":
+                totalIntegers = upperEndpoint - lowerEndpoint + 1;
+                System.out.println(String.format("There are a total of %d integers within the inclusive range.", totalIntegers));
+                for (int i = lowerEndpoint; i <= upperEndpoint; i++) {
+                    if(containsSpecificNumber(i, findDigit)) {
+                        numbersWithNumber++;
+                    } else {
+                        numbersWithoutNumber++;
+                    }
+                }
+                System.out.println(String.format("Between %d and %d (inclusive), there are %d integers that contain the digit %d, and %d that don't."
                                         , lowerEndpoint, upperEndpoint, numbersWithNumber, findDigit, numbersWithoutNumber));
+                    break;
+                
+                case "E":
+                totalIntegers = upperEndpoint - lowerEndpoint - 1;
+                System.out.println(String.format("There are a total of %d integers within the exclusive range.", totalIntegers));
+                for (int i = lowerEndpoint + 1; i < upperEndpoint; i++) {
+                    if(containsSpecificNumber(i, findDigit)) {
+                        numbersWithNumber++;
+                    } else {
+                        numbersWithoutNumber++;
+                    }
+                }
+                System.out.println(String.format("Between %d and %d (exclusive), there are %d integers that contain the digit %d, and %d that don't."
+                                        , lowerEndpoint, upperEndpoint, numbersWithNumber, findDigit, numbersWithoutNumber));
+                break;
+                
+                default:
+                System.out.println("You put in neither I or E to indicate the type of range.");
+            }
+ 
+            //  for (int i = lowerEndpoint; i <= upperEndpoint; i++) {
+            //      if(containsSpecificNumber(i, findDigit)) {
+            //          numbersWithNumber++;
+            //      } else {
+            //          numbersWithoutNumber++;
+            //      }
+            //  }
  
          } catch (InputMismatchException e) {
              e.printStackTrace();
